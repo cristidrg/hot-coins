@@ -29,10 +29,26 @@ export default {
     '@nuxtjs/eslint-module',
     // https://go.nuxtjs.dev/tailwindcss
     '@nuxtjs/tailwindcss',
+    '@nuxtjs/pwa',
   ],
 
+  pwa: {
+    manifest: {
+      name: 'Fractional Coin Ranking',
+      useWebmanifestExtension: false,
+    },
+  },
+
   // Modules: https://go.nuxtjs.dev/config-modules
-  modules: [],
+  modules: [
+    [
+      'nuxt-vuex-localstorage',
+      {
+        localStorage: ['search', 'preferences'],
+        versionPropName: 'fractionalInterviewDC',
+      },
+    ],
+  ],
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {},

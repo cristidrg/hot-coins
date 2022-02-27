@@ -42,15 +42,14 @@ export default {
     HeartToggle,
   },
   computed: {
-    ...mapState([
-      'coinList',
+    ...mapState('content', ['coinList']),
+    ...mapState('search', ['searchTerm', 'searchResults']),
+    ...mapState('preferences', [
       'favoriteCoinIds',
-      'searchTerm',
       'sortColumn',
       'sortAscending',
-      'searchResults',
     ]),
-    ...mapGetters(['GET_COIN_FAVORITE_STATUS']),
+    ...mapGetters('preferences', ['GET_COIN_FAVORITE_STATUS']),
     coinsToDisplay() {
       let result = this.coinList
 
@@ -73,12 +72,11 @@ export default {
     },
   },
   methods: {
-    ...mapActions([
+    ...mapActions('preferences', [
       'TOGGLE_FAVORITE_COIN_ID',
-      'SET_SEARCH_TERM',
       'SET_SORT_PARAMS',
-      'SEARCH',
     ]),
+    ...mapActions('search', ['SEARCH', 'SET_SEARCH_TERM']),
     onSearch(query) {
       this.SET_SEARCH_TERM(query)
       this.SEARCH(query)
