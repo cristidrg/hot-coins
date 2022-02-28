@@ -24,10 +24,6 @@ export default {
     HeaderBanner,
     CoinTable,
   },
-  async asyncData({ store }) {
-    await store.dispatch('content/GET_COIN_DATA')
-    return {}
-  },
   computed: {
     ...mapState('content', ['coinList']),
     ...mapState('search', ['searchTerm', 'searchResults']),
@@ -57,6 +53,9 @@ export default {
 
       return result
     },
+  },
+  created() {
+    this.$store.dispatch('content/GET_COIN_DATA')
   },
   methods: {
     ...mapActions('preferences', [
