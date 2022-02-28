@@ -180,7 +180,7 @@ export default {
       } else {
         this.SET_SORT_PARAMS({
           sortColumn: newSortColumn,
-          sortAscending: true,
+          sortAscending: false,
         })
       }
     },
