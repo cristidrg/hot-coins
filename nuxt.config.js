@@ -17,7 +17,7 @@ export default {
   target: 'server',
 
   // Global CSS: https://go.nuxtjs.dev/config-css
-  css: ['styles/main.scss'],
+  css: ['@/styles/main.scss'],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [],
