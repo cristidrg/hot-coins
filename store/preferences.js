@@ -1,7 +1,7 @@
 export const state = () => ({
   favoriteCoinIds: [], // by id
-  sortColumn: null,
-  sortAscending: true,
+  sortColumn: 'market_cap_rank',
+  sortAscending: false,
 })
 
 export const mutations = {

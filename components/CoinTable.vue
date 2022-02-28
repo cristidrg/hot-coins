@@ -14,11 +14,65 @@
       <table class="fr-table__entity">
         <thead>
           <tr class="fr-table__header-row border-lightgrey font-light">
-            <th @click="() => onHeadingClick('market_cap_rank')">#</th>
-            <th @click="() => onHeadingClick('symbol')">Symbol</th>
-            <th @click="() => onHeadingClick('name')">Coin Name</th>
-            <th @click="() => onHeadingClick('current_price')">Price</th>
-            <th @click="() => onHeadingClick('market_cap')">Market Cap</th>
+            <th @click="() => onHeadingClick('market_cap_rank')">
+              <div
+                :class="{
+                  'fr-table__header-row-cell--active':
+                    sortColumn == 'market_cap_rank',
+
+                  'fr-table__header-row-cell--active-reverse':
+                    sortColumn == 'market_cap_rank' && !sortAscending,
+                }"
+              >
+                Rank<Caret />
+              </div>
+            </th>
+            <th @click="() => onHeadingClick('symbol')">
+              <div
+                :class="{
+                  'fr-table__header-row-cell--active': sortColumn == 'symbol',
+                  'fr-table__header-row-cell--active-reverse':
+                    sortColumn == 'symbol' && !sortAscending,
+                }"
+              >
+                Symbol <Caret />
+              </div>
+            </th>
+            <th @click="() => onHeadingClick('name')">
+              <div
+                :class="{
+                  'fr-table__header-row-cell--active': sortColumn == 'name',
+                  'fr-table__header-row-cell--active-reverse':
+                    sortColumn == 'name' && !sortAscending,
+                }"
+              >
+                Coin Name <Caret />
+              </div>
+            </th>
+            <th @click="() => onHeadingClick('current_price')">
+              <div
+                :class="{
+                  'fr-table__header-row-cell--active':
+                    sortColumn == 'current_price',
+                  'fr-table__header-row-cell--active-reverse':
+                    sortColumn == 'current_price' && !sortAscending,
+                }"
+              >
+                Price <Caret />
+              </div>
+            </th>
+            <th @click="() => onHeadingClick('market_cap')">
+              <div
+                :class="{
+                  'fr-table__header-row-cell--active':
+                    sortColumn == 'market_cap',
+                  'fr-table__header-row-cell--active-reverse':
+                    sortColumn == 'market_cap' && !sortAscending,
+                }"
+              >
+                Market Cap<Caret />
+              </div>
+            </th>
             <th class="text-center">Favorite</th>
           </tr>
         </thead>
@@ -28,10 +82,12 @@
           class="fr-table__body-row text-left font-light"
         >
           <td>{{ coin.market_cap_rank }}</td>
-          <td>{{ coin.symbol }}</td>
+          <td>
+            <div><img :src="coin.image" />{{ coin.symbol }}</div>
+          </td>
           <td>{{ coin.name }}</td>
-          <td>{{ coin.current_price }}</td>
-          <td>{{ coin.market_cap }}</td>
+          <td>{{ format(coin.current_price) }}</td>
+          <td>{{ aveta(coin.market_cap, { precision: 3, space: true }) }}</td>
           <td class="text-center">
             <HeartToggle
               :favorited="GET_COIN_FAVORITE_STATUS(coin.id)"
@@ -46,12 +102,17 @@
 
 <script>
 import { sortBy } from 'lodash'
+import aveta from 'aveta'
 import { mapState, mapActions, mapGetters } from 'vuex'
 import HeartToggle from '@/components/HeartToggle'
+import Caret from '@/assets/images/caret.svg?inline'
+
+const { format } = new Intl.NumberFormat('en-GB')
 
 export default {
   name: 'CoinTable',
   components: {
+    Caret,
     HeartToggle,
   },
   computed: {
@@ -90,6 +151,8 @@ export default {
       'SET_SORT_PARAMS',
     ]),
     ...mapActions('search', ['SEARCH', 'SET_SEARCH_TERM']),
+    aveta,
+    format,
     onSearch(query) {
       this.SET_SEARCH_TERM(query)
       this.SEARCH(query)
@@ -180,15 +243,54 @@ export default {
     border-bottom: 2px solid #e1e1e1;
     height: 40px;
     font-weight: 400;
+    cursor: pointer;
+    transform: color 200ms ease;
 
     &:first-child {
       padding-left: 25px;
     }
+
+    &:hover {
+      color: #5b5b5b;
+    }
+  }
+
+  &__header-row div {
+    display: flex;
+    align-items: center;
+  }
+
+  div.fr-table__header-row-cell {
+    &--active svg {
+      fill: #a9ed4a;
+    }
+
+    &--active-reverse svg {
+      transform: rotate(0deg);
+    }
+  }
+
+  &__header-row svg {
+    height: 17px;
+    margin-left: 10px;
+    transform: rotate(180deg);
+    transition: transform 175ms ease;
   }
 
   &__body-row > td {
     height: 80px;
     border-bottom: 1px solid #ebebeb;
+  }
+
+  &__body-row > td div {
+    display: flex;
+    align-items: center;
+  }
+
+  &__body-row > td img {
+    height: 25px;
+    width: 25px;
+    margin-right: 10px;
   }
 
   &__body-row {
