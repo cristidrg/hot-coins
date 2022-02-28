@@ -42,6 +42,18 @@ export default {
       lang: 'en',
       display: 'standalone',
     },
+    workbox: {
+      runtimeCaching: [
+        {
+          // Should be a regex string. Compiles into new RegExp('https://my-cdn.com/.*')
+          urlPattern: 'https://res.cloudinary.com/dpvqe9t6l.*',
+          // Defaults to `NetworkFirst` if omitted
+          // handler: 'NetworkFirst',
+          // Defaults to `GET` if omitted
+          // method: 'GET'
+        },
+      ],
+    },
   },
 
   // Modules: https://go.nuxtjs.dev/config-modules
