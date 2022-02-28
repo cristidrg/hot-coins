@@ -37,8 +37,10 @@ export default {
 
   pwa: {
     manifest: {
-      name: 'Fractional Coin Ranking',
-      useWebmanifestExtension: false,
+      name: 'Coin Ranking',
+      short_name: 'Coin Ranking',
+      lang: 'en',
+      display: 'standalone',
     },
   },
 
