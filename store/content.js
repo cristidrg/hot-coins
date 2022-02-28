@@ -15,17 +15,20 @@ export const actions = {
     const coinList = await CoinGeckoAPI.getMarkets({
       currency: 'usd',
       perPage: 100,
-    }).map(
-      ({ name, current_price, market_cap, id, image, market_cap_rank }) => ({
-        name,
-        current_price,
-        market_cap,
-        id,
-        image,
-        market_cap_rank,
-      })
-    )
+    })
 
-    return commit('SET_COIN_LIST', coinList)
+    return commit(
+      'SET_COIN_LIST',
+      coinList.map(
+        ({ name, current_price, market_cap, id, image, market_cap_rank }) => ({
+          name,
+          current_price,
+          market_cap,
+          id,
+          image,
+          market_cap_rank,
+        })
+      )
+    )
   },
 }
