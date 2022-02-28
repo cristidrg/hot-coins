@@ -95,9 +95,15 @@
                 </div>
               </td>
               <td>{{ coin.name }}</td>
-              <td>{{ format(coin.current_price) }}</td>
+              <td>{{ formatPrice(coin.current_price) }}</td>
               <td>
-                {{ aveta(coin.market_cap, { precision: 3, space: true }) }}
+                ${{
+                  aveta(coin.market_cap, {
+                    precision: 3,
+                    space: true,
+                    separator: ',',
+                  })
+                }}
               </td>
               <td class="text-center">
                 <HeartToggle
@@ -120,7 +126,10 @@ import { mapState, mapActions, mapGetters } from 'vuex'
 import HeartToggle from '@/components/HeartToggle'
 import Caret from '@/assets/images/caret.svg?inline'
 
-const { format } = new Intl.NumberFormat('en-GB')
+const { format } = new Intl.NumberFormat('en-US', {
+  style: 'currency',
+  currency: 'USD',
+})
 
 export default {
   name: 'CoinTable',
@@ -166,7 +175,11 @@ export default {
     ...mapActions('search', ['SET_SEARCH_TERM']),
     ...mapActions('searchIndex', ['SEARCH']),
     aveta,
-    format,
+    formatPrice(price) {
+      const formattedPrice = format(price)
+
+      return formattedPrice === '0' ? price : formattedPrice
+    },
     onSearch(query) {
       this.SET_SEARCH_TERM(query)
       this.SEARCH(query)
