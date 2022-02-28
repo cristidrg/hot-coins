@@ -3,7 +3,7 @@
     <HeartIcon
       class="toggle-favorite__icon"
       :class="iconClasses"
-      @animationend.native="onIconAnimationEnds"
+      @animationend="onIconAnimationEnds"
     />
     <transition name="favorite-particles-transition">
       <div v-if="animating" class="toggle-favorite__particles"></div>
@@ -13,7 +13,7 @@
 
 <script>
 // https://codesandbox.io/s/vue-twitter-heart-animation-forked-gcqwt5?file=/src/components/FavoriteIcon.vue:0-469
-import HeartIcon from './HeartIcon'
+import HeartIcon from '@/assets/images/heart.svg?inline'
 export default {
   name: 'HeartToggle',
   components: {

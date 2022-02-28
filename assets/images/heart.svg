@@ -1,5 +1,4 @@
-<template>
-  <svg
+<svg
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 24 24"
     stroke-width="1"
@@ -12,4 +11,3 @@
       stroke-linejoin="round"
     ></path>
   </svg>
-</template>

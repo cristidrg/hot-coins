@@ -4,14 +4,14 @@
       <label class="sr-only" for="coinSearch">Search</label>
       <input
         id="coinSearch"
-        class="fr-table__search"
+        class="fr-table__search text-sm lg:text-base"
         placeholder="Search"
         :value="searchTerm"
         @input="(e) => onSearch(e.target.value)"
       />
     </div>
-    <div class="fr-table__container bg-white -4 border-lightgrey">
-      <table class="fr-table__entity">
+    <div class="fr-table__container bg-white border-lightgrey">
+      <table class="fr-table__entity text-xs lg:text-base">
         <thead>
           <tr class="fr-table__header-row border-lightgrey font-light">
             <th @click="() => onHeadingClick('market_cap_rank')">
@@ -185,6 +185,7 @@ export default {
   flex-direction: column;
 
   &__container {
+    overflow-x: scroll;
     padding: 1rem 0;
     border-radius: 0.75rem;
     border-width: 1px;
@@ -195,6 +196,10 @@ export default {
     &:hover {
       box-shadow: rgba(88, 102, 126, 0.28) 0px 4px 24px,
         rgba(88, 102, 126, 0.28) 0px 1px 2px;
+    }
+
+    @media (min-width: 1000px) {
+      overflow: hidden;
     }
   }
 
@@ -258,6 +263,11 @@ export default {
   &__header-row div {
     display: flex;
     align-items: center;
+    min-width: 100px;
+
+    @media (min-width: 1000px) {
+      min-width: auto;
+    }
   }
 
   div.fr-table__header-row-cell {

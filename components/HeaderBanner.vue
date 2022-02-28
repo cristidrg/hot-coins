@@ -1,9 +1,11 @@
 <template>
   <div class="fr-heading">
-    <h1 class="fr-heading__text text-4xl font-bold">
+    <h1 class="fr-heading__text text-xl text-center lg:text-4xl font-bold">
       The hottest 100 coins on the crypto market
     </h1>
-    <p class="fr-heading__kicker text-base font-medium text-grey">powered by</p>
+    <p class="fr-heading__kicker text-sm lg:text-base font-medium text-grey">
+      powered by
+    </p>
     <div class="fr-heading__logos">
       <img src="../assets/images/coingecko-logo.webp" />
       <img src="../assets/images/fractional-logo.svg" />
@@ -17,6 +19,12 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  overflow: hidden;
+  padding: 0 20px;
+
+  @media (min-width: 1000px) {
+    overflow: initial;
+  }
 
   &__text {
     position: relative;
@@ -58,8 +66,12 @@
   &__logos > img {
     opacity: 0.8;
     filter: grayscale(1);
-    height: 45px;
+    height: 30px;
     width: auto;
+
+    @media (min-width: 1000px) {
+      height: 45px;
+    }
   }
 }
 </style>

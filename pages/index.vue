@@ -83,17 +83,27 @@ export default {
 
 <style lang="scss">
 .fr-app {
-  margin: 8rem auto 0;
+  margin: 4rem auto 0;
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  @media (min-width: 1000px) {
+    margin: 8rem auto 0;
+  }
 }
 
 .fr-table-container {
   position: relative;
   background: #aaed4a;
-  width: 100vw;
-  max-width: 100%;
+  width: 100%;
+  padding: 0 20px;
   margin-top: 7rem;
+  overflow: hidden;
+
+  @media (min-width: 1000px) {
+    width: 100vw;
+    max-width: 100%;
+  }
 }
 </style>
