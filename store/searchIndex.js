@@ -17,9 +17,11 @@ export const actions = {
       lunr((config) => {
         config.ref('id')
         config.field('name')
-        config.field('symbol')
+        config.field('symbol', { boost: true })
 
-        rootState.content.coinList.forEach((coin) => config.add(coin))
+        rootState.content.coinList.forEach(({ id, name, symbol }) =>
+          config.add({ id, name, symbol })
+        )
       })
     )
   },
@@ -27,7 +29,7 @@ export const actions = {
     if (state.searchIndex) {
       return dispatch(
         'search/SET_SEARCH_RESULTS',
-        state.searchIndex.search(payload),
+        state.searchIndex.search(payload + '~1'),
         {
           root: true,
         }
