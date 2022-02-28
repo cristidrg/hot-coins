@@ -83,7 +83,14 @@
         >
           <td>{{ coin.market_cap_rank }}</td>
           <td>
-            <div><img :src="coin.image" />{{ coin.symbol }}</div>
+            <div>
+              <img
+                :srcset="`
+                    https://res.cloudinary.com/dpvqe9t6l/image/fetch/f_auto,w_25,q_70/${coin.image} 1x,
+                    https://res.cloudinary.com/dpvqe9t6l/image/fetch/f_auto,w_50,q_70/${coin.image} 2x
+                `"
+              />{{ coin.symbol }}
+            </div>
           </td>
           <td>{{ coin.name }}</td>
           <td>{{ format(coin.current_price) }}</td>
