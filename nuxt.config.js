@@ -44,12 +44,12 @@ export default {
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
+    '@nuxtjs/style-resources',
     [
       'nuxt-vuex-localstorage',
-      '@nuxtjs/style-resources',
       {
-        localStorage: ['preferences'],
-        versionPropName: 'fractionalInterviewDC',
+        localStorage: ['preferences', 'search'],
+        versionPropName: 'frdca',
       },
     ],
   ],

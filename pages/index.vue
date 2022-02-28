@@ -11,8 +11,6 @@
 </template>
 
 <script>
-import { sortBy } from 'lodash'
-import { mapState, mapActions, mapGetters } from 'vuex'
 import CoinTable from '@/components/CoinTable'
 import HeaderBanner from '@/components/HeaderBanner'
 import WaveBG from '@/components/WaveBG'
@@ -26,60 +24,6 @@ export default {
   },
   async asyncData({ store }) {
     await store.dispatch('content/GET_COIN_DATA')
-  },
-  computed: {
-    ...mapState('content', ['coinList']),
-    ...mapState('search', ['searchTerm', 'searchResults']),
-    ...mapState('preferences', [
-      'favoriteCoinIds',
-      'sortColumn',
-      'sortAscending',
-    ]),
-    ...mapGetters('preferences', ['GET_COIN_FAVORITE_STATUS']),
-    coinsToDisplay() {
-      let result = this.coinList
-
-      if (this.searchResults.length > 0) {
-        result = this.searchResults.map((el) =>
-          result.find((coin) => coin.id === el.ref)
-        )
-      }
-
-      if (this.sortColumn) {
-        let sortedList = sortBy(result, [this.sortColumn])
-        if (this.sortAscending) {
-          sortedList = sortedList.reverse()
-        }
-
-        return sortedList
-      }
-
-      return result
-    },
-  },
-  methods: {
-    ...mapActions('preferences', [
-      'TOGGLE_FAVORITE_COIN_ID',
-      'SET_SORT_PARAMS',
-    ]),
-    ...mapActions('search', ['SEARCH', 'SET_SEARCH_TERM']),
-    onSearch(query) {
-      this.SET_SEARCH_TERM(query)
-      this.SEARCH(query)
-    },
-    onHeadingClick(newSortColumn) {
-      if (this.sortColumn === newSortColumn) {
-        this.SET_SORT_PARAMS({
-          sortColumn: newSortColumn,
-          sortAscending: !this.sortAscending,
-        })
-      } else {
-        this.SET_SORT_PARAMS({
-          sortColumn: newSortColumn,
-          sortAscending: true,
-        })
-      }
-    },
   },
 }
 </script>

@@ -76,32 +76,38 @@
             <th class="text-center">Favorite</th>
           </tr>
         </thead>
-        <tr
-          v-for="coin in coinsToDisplay"
-          :key="coin.id"
-          class="fr-table__body-row text-left font-light"
-        >
-          <td>{{ coin.market_cap_rank }}</td>
-          <td>
-            <div>
-              <img
-                :srcset="`
+        <client-only>
+          <tbody>
+            <tr
+              v-for="coin in coinsToDisplay"
+              :key="coin.id"
+              class="fr-table__body-row text-left font-light"
+            >
+              <td>{{ coin.market_cap_rank }}</td>
+              <td>
+                <div>
+                  <img
+                    :srcset="`
                     https://res.cloudinary.com/dpvqe9t6l/image/fetch/f_auto,w_25,q_70/${coin.image} 1x,
                     https://res.cloudinary.com/dpvqe9t6l/image/fetch/f_auto,w_50,q_70/${coin.image} 2x
                 `"
-              />{{ coin.symbol }}
-            </div>
-          </td>
-          <td>{{ coin.name }}</td>
-          <td>{{ format(coin.current_price) }}</td>
-          <td>{{ aveta(coin.market_cap, { precision: 3, space: true }) }}</td>
-          <td class="text-center">
-            <HeartToggle
-              :favorited="GET_COIN_FAVORITE_STATUS(coin.id)"
-              @toggle="() => TOGGLE_FAVORITE_COIN_ID(coin.id)"
-            />
-          </td>
-        </tr>
+                  />{{ coin.symbol }}
+                </div>
+              </td>
+              <td>{{ coin.name }}</td>
+              <td>{{ format(coin.current_price) }}</td>
+              <td>
+                {{ aveta(coin.market_cap, { precision: 3, space: true }) }}
+              </td>
+              <td class="text-center">
+                <HeartToggle
+                  :favorited="GET_COIN_FAVORITE_STATUS(coin.id)"
+                  @toggle="() => TOGGLE_FAVORITE_COIN_ID(coin.id)"
+                />
+              </td>
+            </tr>
+          </tbody>
+        </client-only>
       </table>
     </div>
   </div>
@@ -157,7 +163,8 @@ export default {
       'TOGGLE_FAVORITE_COIN_ID',
       'SET_SORT_PARAMS',
     ]),
-    ...mapActions('search', ['SEARCH', 'SET_SEARCH_TERM']),
+    ...mapActions('search', ['SET_SEARCH_TERM']),
+    ...mapActions('searchIndex', ['SEARCH']),
     aveta,
     format,
     onSearch(query) {
