@@ -20,7 +20,6 @@
     "lunr": "^2.3.9",
     "nuxt": "^2.15.8",
     "nuxt-vuex-localstorage": "^1.3.0",
-    "prettier-numbers": "^1.0.2",
     "vue": "^2.6.14",
     "vue-server-renderer": "^2.6.14",
     "vue-template-compiler": "^2.6.14",
@@ -46,6 +45,7 @@
     "node-sass": "^6.0.1",
     "postcss": "^8.4.4",
     "prettier": "^2.5.1",
+    "sass": "^1.49.9",
     "sass-loader": "^10.2.1",
     "vue-jest": "^3.0.4"
   }
