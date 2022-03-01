@@ -127,23 +127,23 @@
               </td>
             </tr>
           </tbody>
-          <template #placeholder>
-            <tbody>
-              <tr
-                v-for="(entry, idx) in Array.from(Array(100).keys())"
-                :key="idx"
-                class="fr-table__body-row fr-table__body-row--placeholder text-left font-light"
-              >
-                <td><span class="fr-table__placeholder" /></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-              </tr>
-            </tbody>
-          </template>
         </client-only>
+        <!-- For some reason, the placeholder slot from client-only was crasing -->
+        <!-- So I just did this workaround to save some time -->
+        <tbody v-if="!isMounted">
+          <tr
+            v-for="(entry, idx) in Array.from(Array(100).keys())"
+            :key="idx"
+            class="fr-table__body-row fr-table__body-row--placeholder text-left font-light"
+          >
+            <td><span class="fr-table__placeholder" /></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+        </tbody>
       </table>
     </div>
   </div>
@@ -163,9 +163,17 @@ const { format } = new Intl.NumberFormat('en-US', {
 
 export default {
   name: 'CoinTable',
+  data() {
+    return {
+      isMounted: false,
+    }
+  },
   components: {
     Caret,
     HeartToggle,
+  },
+  mounted() {
+    this.isMounted = true
   },
   computed: {
     ...mapState('content', ['coinList']),
