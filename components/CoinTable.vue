@@ -94,22 +94,6 @@
           </tr>
         </thead>
         <client-only>
-          <template #placeholder>
-            <tbody>
-              <tr
-                v-for="(entry, idx) in Array.from(Array(100).keys())"
-                :key="idx"
-                class="fr-table__body-row fr-table__body-row--placeholder text-left font-light"
-              >
-                <td><span class="fr-table__placeholder" /></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-              </tr>
-            </tbody>
-          </template>
           <tbody>
             <tr
               v-for="coin in coinsToDisplay"
@@ -147,6 +131,20 @@
             </tr>
           </tbody>
         </client-only>
+        <tbody v-if="!isMounted">
+          <tr
+            v-for="(entry, idx) in Array.from(Array(100).keys())"
+            :key="idx"
+            class="fr-table__body-row fr-table__body-row--placeholder text-left font-light"
+          >
+            <td><span class="fr-table__placeholder" /></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+        </tbody>
       </table>
     </div>
   </div>
@@ -170,8 +168,10 @@ export default {
     Caret,
     HeartToggle,
   },
-  mounted() {
-    this.isMounted = true
+  data() {
+    return {
+      isMounted: false,
+    }
   },
   computed: {
     ...mapState('content', ['coinList']),
@@ -202,6 +202,9 @@ export default {
 
       return result
     },
+  },
+  mounted() {
+    this.isMounted = true
   },
   methods: {
     ...mapActions('preferences', [
