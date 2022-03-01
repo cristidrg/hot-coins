@@ -7,7 +7,7 @@
           :class="{
             'fr-table__search-status--interactable': searchResults.length > 0,
           }"
-          @click="() => searchResults.length > 0 && SET_SEARCH_RESULTS(null)"
+          @click="resetSearch"
           v-if="searchResults !== null"
         >
           {{
@@ -211,6 +211,12 @@ export default {
     ...mapActions('search', ['SET_SEARCH_TERM', 'SET_SEARCH_RESULTS']),
     ...mapActions('searchIndex', ['SEARCH']),
     aveta,
+    resetSearch() {
+      if (this.searchResults.length > 0) {
+        this.SET_SEARCH_RESULTS(null)
+        this.SET_SEARCH_TERM('')
+      }
+    },
     formatPrice(price) {
       const formattedPrice = format(price)
 
