@@ -207,7 +207,7 @@ export default {
     formatPrice(price) {
       const formattedPrice = format(price)
 
-      return formattedPrice === '0' ? price : formattedPrice
+      return formattedPrice === '$0.00' ? '$' + price : formattedPrice
     },
     onSearch(query) {
       if (this.searchResults && this.searchResults.length === 0) {
