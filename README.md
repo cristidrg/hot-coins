@@ -1,5 +1,7 @@
 # fractional-interview
 
+For the basic qs check solution1.js and solution2.js
+
 ## Build Setup
 
 ```bash
