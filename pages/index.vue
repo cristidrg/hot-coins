@@ -61,6 +61,8 @@ export default {
     background-repeat: repeat;
     width: 100%;
     height: 100%;
+    animation: enter-bg 1.75s ease-out;
+    animation-fill-mode: normal;
   }
 
   @media (min-width: 1000px) {
@@ -88,6 +90,18 @@ export default {
     @media (min-width: 1000px) {
       margin-top: 0;
     }
+  }
+}
+
+@keyframes enter-bg {
+  from {
+    transform: scale(0);
+    opacity: 0;
+  }
+
+  to {
+    transform: scale(1);
+    opacity: 1;
   }
 }
 
