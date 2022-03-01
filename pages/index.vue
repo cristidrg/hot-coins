@@ -49,6 +49,20 @@ export default {
   overflow: hidden;
   min-height: 700px;
 
+  &:after {
+    position: absolute;
+    top: 0;
+    left: 0;
+    content: ' ';
+    z-index: 1;
+    display: block;
+    background-image: url('/images/cryptopattern.svg');
+    background-size: 25%;
+    background-repeat: repeat;
+    width: 100%;
+    height: 100%;
+  }
+
   @media (min-width: 1000px) {
     width: 100vw;
     max-width: 100%;
@@ -58,6 +72,7 @@ export default {
     position: absolute;
     left: 0;
     top: 0;
+    z-index: 2;
 
     animation: enter-wave 1.75s ease-out;
     animation-fill-mode: normal;
@@ -67,6 +82,8 @@ export default {
     margin-top: 30px;
     animation: enter-table 1.75s ease-out;
     animation-fill-mode: normal;
+    position: relative;
+    z-index: 3;
 
     @media (min-width: 1000px) {
       margin-top: 0;
