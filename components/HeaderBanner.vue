@@ -57,8 +57,8 @@ export default {
       display: block;
       position: absolute;
       content: '';
-      animation: enter-dots 1s ease-in 1s;
-      animation-fill-mode: normal;
+      // animation: enter-dots 1s ease-in 1s;
+      // animation-fill-mode: normal;
     }
 
     &:before {
