@@ -2,6 +2,8 @@
 
 For the basic qs check solution1.js and solution2.js
 
+For the app check it here: https://fractional-interview.vercel.app/
+Documentation: https://www.notion.so/cristiansoft/Hot-Coins-8bf2c9fcd9d0415ab842d19b87b1177e
 ## Build Setup
 
 ```bash
