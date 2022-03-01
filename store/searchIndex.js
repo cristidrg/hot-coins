@@ -26,6 +26,10 @@ export const actions = {
     )
   },
   async SEARCH({ state, dispatch }, payload) {
+    if (!payload) {
+      return dispatch('search/SET_SEARCH_RESULTS', [])
+    }
+
     if (state.searchIndex) {
       return dispatch(
         'search/SET_SEARCH_RESULTS',

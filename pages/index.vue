@@ -3,9 +3,10 @@
     <HeaderBanner />
 
     <div class="fr-table-container">
-      <WaveBG class="absolute l-0" />
-
-      <CoinTable />
+      <WaveBG class="fr-table-container__wave" />
+      <div class="fr-table-container__content">
+        <CoinTable />
+      </div>
     </div>
   </div>
 </template>
@@ -44,13 +45,54 @@ export default {
   position: relative;
   background: #aaed4a;
   width: 100%;
-  padding: 0 20px;
   margin-top: 7rem;
   overflow: hidden;
+  min-height: 700px;
 
   @media (min-width: 1000px) {
     width: 100vw;
     max-width: 100%;
+  }
+
+  &__wave {
+    position: absolute;
+    left: 0;
+    top: 0;
+
+    animation: enter-wave 1.75s ease-out;
+    animation-fill-mode: normal;
+  }
+
+  &__content {
+    margin-top: 30px;
+    animation: enter-table 1.75s ease-out;
+    animation-fill-mode: normal;
+
+    @media (min-width: 1000px) {
+      margin-top: 0;
+    }
+  }
+}
+
+@keyframes enter-wave {
+  from {
+    transform: scaleX(0) translateY(-300px);
+  }
+
+  to {
+    transform: scaleX(1) translateY(0px);
+  }
+}
+
+@keyframes enter-table {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0px);
+    opacity: 1;
   }
 }
 </style>

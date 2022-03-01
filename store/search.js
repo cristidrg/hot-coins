@@ -1,5 +1,5 @@
 export const state = () => ({
-  searchResults: [],
+  searchResults: null,
   searchTerm: '',
 })
 
@@ -8,7 +8,7 @@ export const mutations = {
     state.searchTerm = payload
   },
   SET_SEARCH_RESULTS(state, payload) {
-    state.searchResults = [...payload]
+    state.searchResults = payload
   },
 }
 
