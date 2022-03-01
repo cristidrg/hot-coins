@@ -35,6 +35,10 @@ export default {
     '@nuxtjs/pwa',
   ],
 
+  colorMode: {
+    classSuffix: '',
+  },
+
   pwa: {
     manifest: {
       name: 'Coin Ranking',

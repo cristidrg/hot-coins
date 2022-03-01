@@ -31,13 +31,14 @@ export default {
 
 <style lang="scss">
 .fr-app {
-  margin: 4rem auto 0;
+  background: #f8f8f8;
+  padding: 4rem 0 0;
   display: flex;
   flex-direction: column;
   align-items: center;
 
   @media (min-width: 1000px) {
-    margin: 8rem auto 0;
+    padding: 8rem 0 0;
   }
 }
 

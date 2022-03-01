@@ -14,10 +14,9 @@
             searchResults.length === 0 ? 'No results found' : 'Clear  Results'
           }}
         </p>
-        <label class="sr-only" for="coinSearch" @click="SEARCH(searchTerm)"
-          >Search</label
-        >
+        <label class="sr-only" for="coinSearch">Search</label>
       </client-only>
+      <SearchIcon class="fr-table__search-icon" @click="SEARCH(searchTerm)" />
       <input
         id="coinSearch"
         class="fr-table__search text-sm lg:text-base"
@@ -155,6 +154,7 @@ import { sortBy } from 'lodash'
 import aveta from 'aveta'
 import { mapState, mapActions, mapGetters } from 'vuex'
 import HeartToggle from '@/components/HeartToggle'
+import SearchIcon from '@/assets/images/search.svg?inline'
 import Caret from '@/assets/images/caret.svg?inline'
 
 const { format } = new Intl.NumberFormat('en-US', {
@@ -166,6 +166,7 @@ export default {
   name: 'CoinTable',
   components: {
     Caret,
+    SearchIcon,
     HeartToggle,
   },
   data() {
@@ -260,7 +261,7 @@ export default {
 
   &__container {
     overflow-x: scroll;
-    padding: 1rem 0;
+    padding: 1rem 0 0;
     border-width: 1px;
     transition: all 250ms ease;
     box-shadow: rgba(88, 102, 126, 0.08) 0px 4px 24px,
@@ -289,6 +290,17 @@ export default {
     @media (min-width: 1000px) {
       width: 210px;
     }
+  }
+
+  &__search-icon {
+    cursor: pointer;
+    position: absolute;
+    display: block;
+    left: 13px;
+    top: 9px;
+    height: 25px;
+    font-size: 1em;
+    width: 25px;
   }
 
   &__search-status {
@@ -336,18 +348,6 @@ export default {
       display: inline-block;
       margin-left: auto;
       margin-bottom: 20px;
-    }
-
-    &:before {
-      background: url('/images/search.svg');
-      content: '';
-      position: absolute;
-      display: block;
-      left: 13px;
-      top: 9px;
-      height: 25px;
-      font-size: 1em;
-      width: 25px;
     }
   }
 
