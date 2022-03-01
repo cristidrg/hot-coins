@@ -14,6 +14,7 @@
       <label class="sr-only" for="coinSearch" @click="SEARCH(searchTerm)"
         >Search</label
       >
+      <SearchIcon />
       <input
         id="coinSearch"
         class="fr-table__search text-sm lg:text-base"
@@ -90,22 +91,6 @@
           </tr>
         </thead>
         <client-only>
-          <template #placeholder>
-            <tbody>
-              <tr
-                v-for="(entry, idx) in Array.from(Array(100).keys())"
-                :key="idx"
-                class="fr-table__body-row fr-table__body-row--placeholder text-left font-light"
-              >
-                <td><span class="fr-table__placeholder" /></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-              </tr>
-            </tbody>
-          </template>
           <tbody>
             <tr
               v-for="coin in coinsToDisplay"
@@ -142,6 +127,22 @@
               </td>
             </tr>
           </tbody>
+          <template #placeholder>
+            <tbody>
+              <tr
+                v-for="(entry, idx) in Array.from(Array(100).keys())"
+                :key="idx"
+                class="fr-table__body-row fr-table__body-row--placeholder text-left font-light"
+              >
+                <td><span class="fr-table__placeholder" /></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+            </tbody>
+          </template>
         </client-only>
       </table>
     </div>
