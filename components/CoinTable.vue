@@ -1,20 +1,23 @@
 <template>
   <div class="fr-table">
     <div class="fr-table__search-holder">
-      <p
-        class="fr-table__search-status text-sm lg:text-base"
-        :class="{
-          'fr-table__search-status--interactable': searchResults.length > 0,
-        }"
-        @click="() => searchResults.length > 0 && SET_SEARCH_RESULTS(null)"
-        v-if="searchResults !== null"
-      >
-        {{ searchResults.length === 0 ? 'No results found' : 'Clear  Results' }}
-      </p>
-      <label class="sr-only" for="coinSearch" @click="SEARCH(searchTerm)"
-        >Search</label
-      >
-      <SearchIcon />
+      <client-only>
+        <p
+          class="fr-table__search-status text-sm lg:text-base"
+          :class="{
+            'fr-table__search-status--interactable': searchResults.length > 0,
+          }"
+          @click="() => searchResults.length > 0 && SET_SEARCH_RESULTS(null)"
+          v-if="searchResults !== null"
+        >
+          {{
+            searchResults.length === 0 ? 'No results found' : 'Clear  Results'
+          }}
+        </p>
+        <label class="sr-only" for="coinSearch" @click="SEARCH(searchTerm)"
+          >Search</label
+        >
+      </client-only>
       <input
         id="coinSearch"
         class="fr-table__search text-sm lg:text-base"
@@ -91,6 +94,22 @@
           </tr>
         </thead>
         <client-only>
+          <template #placeholder>
+            <tbody>
+              <tr
+                v-for="(entry, idx) in Array.from(Array(100).keys())"
+                :key="idx"
+                class="fr-table__body-row fr-table__body-row--placeholder text-left font-light"
+              >
+                <td><span class="fr-table__placeholder" /></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+            </tbody>
+          </template>
           <tbody>
             <tr
               v-for="coin in coinsToDisplay"
@@ -128,22 +147,6 @@
             </tr>
           </tbody>
         </client-only>
-        <!-- For some reason, the placeholder slot from client-only was crasing -->
-        <!-- So I just did this workaround to save some time -->
-        <tbody v-if="!isMounted">
-          <tr
-            v-for="(entry, idx) in Array.from(Array(100).keys())"
-            :key="idx"
-            class="fr-table__body-row fr-table__body-row--placeholder text-left font-light"
-          >
-            <td><span class="fr-table__placeholder" /></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-          </tr>
-        </tbody>
       </table>
     </div>
   </div>
@@ -163,11 +166,6 @@ const { format } = new Intl.NumberFormat('en-US', {
 
 export default {
   name: 'CoinTable',
-  data() {
-    return {
-      isMounted: false,
-    }
-  },
   components: {
     Caret,
     HeartToggle,
