@@ -9,7 +9,7 @@ async () => {
 
         await setRole(state, user.id, 'ADMIN')
 
-        Promise.all([
+        return Promise.all([
             notifyUser(user.id, 'USER_ROLE_UPDATED'),
             notifyAdmins('USER_ROLE_UPDATED'),
         ])
