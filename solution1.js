@@ -39,17 +39,17 @@ function sortNet11(data) {
     if (data[3] > data[4]) { swap = data[3]; data[3] = data[4]; data[4] = swap; }
     if (data[5] > data[6]) { swap = data[5]; data[5] = data[6]; data[6] = swap; }
     
-    if(data[10] > data[0]) { swap = data[0]; data[0] = data[10]; data[10] = swap;}
-    if(data[10] > data[1]) { swap = data[1]; data[1] = data[10]; data[10] = swap;}
-    if(data[10] > data[2]) { swap = data[2]; data[2] = data[10]; data[10] = swap;}
-    if(data[10] > data[3]) { swap = data[3]; data[3] = data[10]; data[10] = swap;}
-    if(data[10] > data[4]) { swap = data[4]; data[4] = data[10]; data[10] = swap;}
-    if(data[10] > data[5]) { swap = data[5]; data[5] = data[10]; data[10] = swap;}
-    if(data[10] > data[6]) { swap = data[6]; data[6] = data[10]; data[10] = swap;}
-    if(data[10] > data[7]) { swap = data[7]; data[7] = data[10]; data[10] = swap;}
-    if(data[10] > data[8]) { swap = data[8]; data[8] = data[10]; data[10] = swap;}
-    if(data[10] > data[9]) { swap = data[9]; data[9] = data[10]; data[10] = swap;}
+    if(data[0] > data[10]) { swap = data[0]; data[0] = data[10]; data[10] = swap;}
+    if(data[1] > data[10]) { swap = data[1]; data[1] = data[10]; data[10] = swap;}
+    if(data[2] > data[10]) { swap = data[2]; data[2] = data[10]; data[10] = swap;}
+    if(data[3] > data[10]) { swap = data[3]; data[3] = data[10]; data[10] = swap;}
+    if(data[4] > data[10]) { swap = data[4]; data[4] = data[10]; data[10] = swap;}
+    if(data[5] > data[10]) { swap = data[5]; data[5] = data[10]; data[10] = swap;}
+    if(data[6] > data[10]) { swap = data[6]; data[6] = data[10]; data[10] = swap;}
+    if(data[7] > data[10]) { swap = data[7]; data[7] = data[10]; data[10] = swap;}
+    if(data[8] > data[10]) { swap = data[8]; data[8] = data[10]; data[10] = swap;}
+    if(data[9] > data[10]) { swap = data[9]; data[9] = data[10]; data[10] = swap;}
     return(data);
 }
 
-sortNet11([6,50,21,40,1,23,65,96,39,40, 71, 23])
+sortNet11([6,50,21,40,1,23,65,96,39,40,71])
