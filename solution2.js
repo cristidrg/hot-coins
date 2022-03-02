@@ -15,6 +15,7 @@ async () => {
         ])
     } catch(err) {
         console.error("Whooops:", err)
+        throw err
     }
 }()
 
