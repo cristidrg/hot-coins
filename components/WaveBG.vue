@@ -14,7 +14,6 @@
   width: 100%;
 
   > svg {
-    stroke: #7ac80e;
     width: 100%;
     margin-top: -1px;
   }

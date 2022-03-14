@@ -36,6 +36,7 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
+  min-height: 100vh;
 
   @media (min-width: 1000px) {
     padding: 8rem 0 0;
@@ -48,7 +49,7 @@ export default {
   width: 100%;
   margin-top: 7rem;
   overflow: hidden;
-  min-height: 700px;
+  flex: 1;
 
   &:after {
     position: absolute;
