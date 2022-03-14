@@ -44,7 +44,7 @@ export default {
 
 .fr-table-container {
   position: relative;
-  background: #aaed4a;
+  background: #025d96;
   width: 100%;
   margin-top: 7rem;
   overflow: hidden;

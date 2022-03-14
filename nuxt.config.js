@@ -1,7 +1,7 @@
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'fractional-interview',
+    title: 'Hot Coins',
     htmlAttrs: {
       lang: 'en',
     },
@@ -41,8 +41,8 @@ export default {
 
   pwa: {
     manifest: {
-      name: 'Coin Ranking',
-      short_name: 'Coin Ranking',
+      name: 'Hot Coins',
+      short_name: 'Hot Coins',
       lang: 'en',
       display: 'standalone',
     },

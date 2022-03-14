@@ -1,106 +1,50 @@
 <template>
   <div class="fr-table">
-    <div class="fr-table__search-holder">
-      <client-only>
-        <p
-          class="fr-table__search-status text-sm lg:text-base"
-          :class="{
-            'fr-table__search-status--interactable': searchResults.length > 0,
-          }"
-          @click="resetSearch"
-          v-if="searchResults !== null"
-        >
-          {{
-            searchResults.length === 0 ? 'No results found' : 'Clear  Results'
-          }}
-        </p>
-        <label class="sr-only" for="coinSearch">Search</label>
-      </client-only>
-      <SearchIcon class="fr-table__search-icon" @click="SEARCH(searchTerm)" />
-      <input
-        id="coinSearch"
-        class="fr-table__search text-sm lg:text-base"
-        placeholder="Search"
-        :value="searchTerm"
-        @input="(e) => onSearch(e.target.value)"
-        @keydown.enter="SEARCH(searchTerm)"
-      />
-    </div>
+    <SearchBox class="fr-table__search" />
     <div class="fr-table__container bg-white border-lightgrey">
       <table class="fr-table__entity text-xs lg:text-base">
         <thead>
           <tr class="fr-table__header-row border-lightgrey font-light">
-            <th @click="() => onHeadingClick('market_cap_rank')">
+            <th
+              v-for="(column, columnIdx) in columns"
+              :key="columnIdx"
+              @click="() => onHeadingClick(column.key)"
+            >
               <div
                 :class="{
-                  'fr-table__header-row-cell--active':
-                    sortColumn == 'market_cap_rank',
+                  'fr-table__header-row-cell--active': sortColumn == column.key,
 
                   'fr-table__header-row-cell--active-reverse':
-                    sortColumn == 'market_cap_rank' && !sortAscending,
+                    sortColumn == column.key && !sortAscending,
                 }"
               >
-                Rank<Caret />
+                {{ column.label }}<Caret />
               </div>
             </th>
-            <th @click="() => onHeadingClick('symbol')">
-              <div
-                :class="{
-                  'fr-table__header-row-cell--active': sortColumn == 'symbol',
-                  'fr-table__header-row-cell--active-reverse':
-                    sortColumn == 'symbol' && !sortAscending,
-                }"
-              >
-                Symbol <Caret />
-              </div>
-            </th>
-            <th @click="() => onHeadingClick('name')">
-              <div
-                :class="{
-                  'fr-table__header-row-cell--active': sortColumn == 'name',
-                  'fr-table__header-row-cell--active-reverse':
-                    sortColumn == 'name' && !sortAscending,
-                }"
-              >
-                Coin Name <Caret />
-              </div>
-            </th>
-            <th @click="() => onHeadingClick('current_price')">
-              <div
-                :class="{
-                  'fr-table__header-row-cell--active':
-                    sortColumn == 'current_price',
-                  'fr-table__header-row-cell--active-reverse':
-                    sortColumn == 'current_price' && !sortAscending,
-                }"
-              >
-                Price <Caret />
-              </div>
-            </th>
-            <th @click="() => onHeadingClick('market_cap')">
-              <div
-                :class="{
-                  'fr-table__header-row-cell--active':
-                    sortColumn == 'market_cap',
-                  'fr-table__header-row-cell--active-reverse':
-                    sortColumn == 'market_cap' && !sortAscending,
-                }"
-              >
-                Market Cap<Caret />
-              </div>
-            </th>
-            <th class="text-center">Favorite</th>
           </tr>
         </thead>
-        <client-only>
-          <tbody>
+        <tbody>
+          <client-only>
+            <template #placeholder>
+              <tr
+                v-for="(entry, idx) in Array.from(Array(100).keys())"
+                :key="idx"
+                class="fr-table__body-row fr-table__body-row--placeholder text-left font-light"
+              >
+                <td
+                  class="w-2/12"
+                  v-for="(column, columnIdx) in columns"
+                  :key="columnIdx"
+                />
+              </tr>
+            </template>
             <tr
-              v-for="coin in coinsToDisplay"
-              :key="coin.id"
+              v-for="(coin, coinIdx) in coinsToDisplay"
+              :key="coinIdx"
               class="fr-table__body-row text-left font-light"
             >
-              <td>{{ coin.market_cap_rank }}</td>
-              <td>
+              <td class="w-2/12">{{ coin.market_cap_rank }}</td>
+              <td class="w-2/12">
                 <div>
                   <img
                     :srcset="`
@@ -110,9 +54,9 @@
                   />{{ coin.symbol }}
                 </div>
               </td>
-              <td>{{ coin.name }}</td>
-              <td>{{ formatPrice(coin.current_price) }}</td>
-              <td>
+              <td class="w-2/12">{{ coin.name }}</td>
+              <td class="w-2/12">{{ formatPrice(coin.current_price) }}</td>
+              <td class="w-2/12">
                 ${{
                   aveta(coin.market_cap, {
                     precision: 3,
@@ -121,28 +65,14 @@
                   })
                 }}
               </td>
-              <td class="text-center">
+              <td class="w-2/12 text-start">
                 <HeartToggle
                   :favorited="GET_COIN_FAVORITE_STATUS(coin.id)"
                   @toggle="() => TOGGLE_FAVORITE_COIN_ID(coin.id)"
                 />
               </td>
             </tr>
-          </tbody>
-        </client-only>
-        <tbody v-if="!isMounted">
-          <tr
-            v-for="(entry, idx) in Array.from(Array(100).keys())"
-            :key="idx"
-            class="fr-table__body-row fr-table__body-row--placeholder text-left font-light"
-          >
-            <td><span class="fr-table__placeholder" /></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-          </tr>
+          </client-only>
         </tbody>
       </table>
     </div>
@@ -153,8 +83,8 @@
 import { sortBy } from 'lodash'
 import aveta from 'aveta'
 import { mapState, mapActions, mapGetters } from 'vuex'
+import SearchBox from '@/components/SearchBox'
 import HeartToggle from '@/components/HeartToggle'
-import SearchIcon from '@/assets/images/search.svg?inline'
 import Caret from '@/assets/images/caret.svg?inline'
 
 const { format } = new Intl.NumberFormat('en-US', {
@@ -166,7 +96,7 @@ export default {
   name: 'CoinTable',
   components: {
     Caret,
-    SearchIcon,
+    SearchBox,
     HeartToggle,
   },
   data() {
@@ -176,13 +106,41 @@ export default {
   },
   computed: {
     ...mapState('content', ['coinList']),
-    ...mapState('search', ['searchTerm', 'searchResults']),
+    ...mapState('search', ['searchResults']),
     ...mapState('preferences', [
       'favoriteCoinIds',
       'sortColumn',
       'sortAscending',
     ]),
     ...mapGetters('preferences', ['GET_COIN_FAVORITE_STATUS']),
+    columns() {
+      return [
+        {
+          key: 'market_cap_rank',
+          label: 'Rank',
+        },
+        {
+          key: 'symbol',
+          label: 'Symbol',
+        },
+        {
+          key: 'name',
+          label: 'Coin Name',
+        },
+        {
+          key: 'current_price',
+          label: 'Price',
+        },
+        {
+          key: 'market_cap',
+          label: 'Market Cap',
+        },
+        {
+          key: 'favorite',
+          label: 'Favorite',
+        },
+      ]
+    },
     coinsToDisplay() {
       let result = this.coinList
 
@@ -193,7 +151,18 @@ export default {
       }
 
       if (this.sortColumn) {
-        let sortedList = sortBy(result, [this.sortColumn])
+        let sortedList
+
+        if (this.sortColumn === 'favorite') {
+          sortedList = [
+            ...this.favoriteCoinIds.map((el) =>
+              result.find((entry) => entry.id === el)
+            ),
+          ]
+        } else {
+          sortedList = sortBy(result, [this.sortColumn])
+        }
+
         if (this.sortAscending) {
           sortedList = sortedList.reverse()
         }
@@ -212,25 +181,11 @@ export default {
       'TOGGLE_FAVORITE_COIN_ID',
       'SET_SORT_PARAMS',
     ]),
-    ...mapActions('search', ['SET_SEARCH_TERM', 'SET_SEARCH_RESULTS']),
-    ...mapActions('searchIndex', ['SEARCH']),
     aveta,
-    resetSearch() {
-      if (this.searchResults.length > 0) {
-        this.SET_SEARCH_RESULTS(null)
-        this.SET_SEARCH_TERM('')
-      }
-    },
     formatPrice(price) {
       const formattedPrice = format(price)
 
       return formattedPrice === '$0.00' ? '$' + price : formattedPrice
-    },
-    onSearch(query) {
-      if (this.searchResults && this.searchResults.length === 0) {
-        this.SET_SEARCH_RESULTS(null)
-      }
-      this.SET_SEARCH_TERM(query)
     },
     onHeadingClick(newSortColumn) {
       if (this.sortColumn === newSortColumn) {
@@ -278,51 +233,6 @@ export default {
     }
   }
 
-  &__search {
-    background: #f7f7f7;
-    border: 2px solid #a9ed4a;
-    border-radius: 5px;
-    width: 180px;
-    padding: 8px 15px 8px 42px;
-    box-shadow: rgba(88, 102, 126, 0.1) 0px 4px 24px,
-      rgba(88, 102, 126, 0.1) 0px 1px 2px;
-
-    @media (min-width: 1000px) {
-      width: 210px;
-    }
-  }
-
-  &__search-icon {
-    cursor: pointer;
-    position: absolute;
-    display: block;
-    left: 13px;
-    top: 9px;
-    height: 25px;
-    font-size: 1em;
-    width: 25px;
-  }
-
-  &__search-status {
-    position: absolute;
-    right: 50px;
-    top: 10px;
-    transition: color 175ms ease;
-
-    @media (min-width: 1000px) {
-      left: -140px;
-      right: initial;
-    }
-
-    &--interactable {
-      cursor: pointer;
-
-      &:hover {
-        color: #a9ed4a;
-      }
-    }
-  }
-
   &__body-row--placeholder > td {
     align-items: center;
     justify-content: center;
@@ -337,7 +247,7 @@ export default {
     }
   }
 
-  &__search-holder {
+  &__search {
     position: relative;
     display: flex;
     align-items: flex-start;
@@ -399,7 +309,7 @@ export default {
 
   div.fr-table__header-row-cell {
     &--active svg {
-      fill: #a9ed4a;
+      fill: #009dff;
     }
 
     &--active-reverse svg {
@@ -444,6 +354,10 @@ export default {
   }
 
   &__body-row > td:first-child {
+    padding-left: 25px;
+  }
+
+  &__body-row > td:last-child {
     padding-left: 25px;
   }
 }

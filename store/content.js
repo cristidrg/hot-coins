@@ -17,27 +17,6 @@ export const actions = {
       perPage: 100,
     })
 
-    return commit(
-      'SET_COIN_LIST',
-      coinList.map(
-        ({
-          name,
-          current_price,
-          market_cap,
-          id,
-          image,
-          symbol,
-          market_cap_rank,
-        }) => ({
-          name,
-          current_price,
-          market_cap,
-          id,
-          image,
-          symbol,
-          market_cap_rank,
-        })
-      )
-    )
+    return commit('SET_COIN_LIST', coinList)
   },
 }

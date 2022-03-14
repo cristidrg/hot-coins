@@ -8,7 +8,6 @@
     </p>
     <div class="fr-heading__logos">
       <CoinGeckoLogo />
-      <FractionalLogo />
       <CristianSoftLogo />
       <NuxtLogo />
       <VercelLogo />
@@ -19,7 +18,6 @@
 
 <script>
 import CoinGeckoLogo from '@/assets/images/coingecko-logo.svg?inline'
-import FractionalLogo from '@/assets/images/fractional-logo.svg?inline'
 import CristianSoftLogo from '@/assets/images/cristiansoft-logo.svg?inline'
 import NuxtLogo from '@/assets/images/nuxt-logo.svg?inline'
 import VercelLogo from '@/assets/images/vercel-logo.svg?inline'
@@ -28,7 +26,6 @@ import CloudinaryLogo from '@/assets/images/cloudinary-logo.svg?inline'
 export default {
   components: {
     CoinGeckoLogo,
-    FractionalLogo,
     CristianSoftLogo,
     NuxtLogo,
     VercelLogo,
